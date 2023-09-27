@@ -2,21 +2,16 @@ package br.edu.up.app.ui.produto
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import br.edu.up.app.R
-import br.edu.up.app.ui.produto.placeholder.PlaceholderContent.PlaceholderItem
+import br.edu.up.app.data.Fotos
+import br.edu.up.app.data.Produto
 //import br.edu.up.app.ui.produto.databinding.FragmentItemProdutoBinding
 import br.edu.up.app.databinding.FragmentItemProdutoBinding
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
-class ProdutosAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<ProdutosAdapter.ViewHolder>() {
+class ProdutosAdapter(private val produtos: List<Produto>) :
+    RecyclerView.Adapter<ProdutosAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -31,21 +26,25 @@ class ProdutosAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+
+        val itemProduto = produtos[position]
+
+        val idFoto = Fotos.get(itemProduto.foto)
+
+        holder.imgFoto.setImageResource(idFoto)
+        holder.txtNome.text = itemProduto.nome
+        holder.txtPreco.text = itemProduto.preco.toString()
+
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = produtos.size
 
     inner class ViewHolder(binding: FragmentItemProdutoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
-        }
+        val imgFoto: ImageView = binding.imgFoto
+        val txtNome: TextView = binding.txtNome
+        val txtPreco: TextView = binding.txtPreco
     }
 
 }
