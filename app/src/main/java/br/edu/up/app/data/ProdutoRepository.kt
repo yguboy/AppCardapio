@@ -5,8 +5,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProdutoRepository(val produtoDAO: ProdutoDAO) {
+class ProdutoRepository
+    @Inject constructor(val produtoDAO: ProdutoDAO) {
 
     val produtos: Flow<List<Produto>> get() = produtoDAO.listar()
     suspend fun salvar(produto: Produto) {
@@ -24,18 +26,18 @@ class ProdutoRepository(val produtoDAO: ProdutoDAO) {
         produtoDAO.excluirTodos()
     }
 
-    init {
-        CoroutineScope(Job()).launch {
-
-            produtoDAO.excluirTodos()
-            delay(15000)
-            val produtos = produtos()
-            for(p in produtos){
-                p.id = 0
-                produtoDAO.inserir(p)
-            }
-        }
-    }
+//    init {
+//        CoroutineScope(Job()).launch {
+//
+//            produtoDAO.excluirTodos()
+//            delay(15000)
+//            val produtos = produtos()
+//            for(p in produtos){
+//                p.id = 0
+//                produtoDAO.inserir(p)
+//            }
+//        }
+//    }
 
     companion object {
         fun produtos(): MutableList<Produto> {

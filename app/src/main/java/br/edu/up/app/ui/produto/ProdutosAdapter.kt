@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import br.edu.up.app.data.Fotos
 import br.edu.up.app.data.Produto
 //import br.edu.up.app.ui.produto.databinding.FragmentItemProdutoBinding
 import br.edu.up.app.databinding.FragmentItemProdutoBinding
 
-class ProdutosAdapter(private val produtos: List<Produto>) :
+class ProdutosAdapter(
+    private val produtos: List<Produto>,
+    val viewModel: ProdutoViewModel
+    ) :
     RecyclerView.Adapter<ProdutosAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +39,12 @@ class ProdutosAdapter(private val produtos: List<Produto>) :
         holder.txtNome.text = itemProduto.nome
         holder.txtPreco.text = itemProduto.preco.toString()
 
+        //clique do item da lista
+        holder.itemView.setOnClickListener { view ->
+            viewModel.editar(itemProduto)
+            val action = ProdutosFragmentDirections.actionNavHomeToProdutoFragment()
+            view.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = produtos.size
