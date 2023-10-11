@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener { view ->
+            viewModel.novo()
             //Action safeArgs
             val action = ProdutosFragmentDirections.actionNavHomeToProdutoFragment()
             //Nav controller

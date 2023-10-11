@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.findNavController
 import br.edu.up.app.data.Fotos
 import br.edu.up.app.data.Produto
@@ -39,11 +40,26 @@ class ProdutosAdapter(
         holder.txtNome.text = itemProduto.nome
         holder.txtPreco.text = itemProduto.preco.toString()
 
-        //clique do item da lista
+        //clique para editar item da lista
         holder.itemView.setOnClickListener { view ->
             viewModel.editar(itemProduto)
             val action = ProdutosFragmentDirections.actionNavHomeToProdutoFragment()
             view.findNavController().navigate(action)
+        }
+
+        //clique para excluir item da lista
+        holder.itemView.setOnLongClickListener { view ->
+            AlertDialog.Builder(view.context)
+                .setMessage("ATENÇÃO: Tem certeza que deseja excluir?")
+                .setPositiveButton("Confirmar") { dialog, id ->
+                    viewModel.excluir(itemProduto)
+                }
+                .setNegativeButton("CANCELAR") { dialog, id ->
+                    //ignorar
+                }
+                .create()
+                .show()
+            true
         }
     }
 
