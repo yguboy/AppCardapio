@@ -5,6 +5,7 @@ import android.content.Context
 import br.edu.up.app.data.BancoSQLite
 import br.edu.up.app.data.ProdutoDAO
 import br.edu.up.app.data.ProdutoRepository
+import br.edu.up.app.data.ProdutoRepositorySqlite
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,7 @@ class AppCardapio : Application() {
 
     @Provides
     fun provideProdutoRepository(produtoDAO: ProdutoDAO) : ProdutoRepository {
-        return ProdutoRepository(produtoDAO)
+        return ProdutoRepositorySqlite(produtoDAO)
     }
 
     @Provides
