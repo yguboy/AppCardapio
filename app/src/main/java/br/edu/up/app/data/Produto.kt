@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Produto(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
+    var docId: String,
     var nome: String,
     var descricao: String = String(),
     var preco: Double = 0.0,
@@ -14,5 +15,5 @@ data class Produto(
     var foto: String = "semfoto.jpg",
     var categoria: Int = 0
 ) {
-    constructor() : this(0,"","",0.0,0,"semfoto.jpg",0)
+    constructor() : this(0,"","","",0.0,0,"semfoto.jpg",0)
 }

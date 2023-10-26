@@ -34,6 +34,7 @@ class ProdutoFragment : Fragment() {
         binding.btnSalvar.setOnClickListener {
             val produtoSalvar = Produto(
                 produto.id,
+                //produto.docId,
                 binding.inputNome.text.toString(),
                 binding.inputDescricao.text.toString(),
                 binding.inputPreco.text.toString().toDouble(),
